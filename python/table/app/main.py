@@ -20,6 +20,6 @@ app.add_middleware(
 )
 
 # Add tenant middleware
-app.add_middleware(TenantMiddleware)
+
 
 app.include_router(api_router, prefix="/api")

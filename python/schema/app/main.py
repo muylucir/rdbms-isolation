@@ -6,8 +6,8 @@ from .middleware.tenant import TenantMiddleware
 
 
 app = FastAPI(
-    title="Multi-tenant E-Commerce API Schema per Tenant",
-    description="FastAPI E-Commerce Application with Multi-tenancy",
+    title="Multi-tenant E-Commerce API Shared schema",
+    description="FastAPI Multi-tenant E-Commerce Application",
     version="1.0.0"
 )
 
@@ -16,9 +16,10 @@ app.add_middleware(
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*", "x-tenant-id"],  # x-tenant-id 헤더 허용
+    allow_headers=["*"],
 )
 
-app.add_middleware(TenantMiddleware)
+# Add tenant middleware
+
 
 app.include_router(api_router, prefix="/api")

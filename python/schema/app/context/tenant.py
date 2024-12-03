@@ -1,11 +1,1 @@
-from contextvars import ContextVar
-from typing import Optional
-
-tenant_context: ContextVar[Optional[str]] = ContextVar('tenant_id', default=None)
-
-def get_current_tenant_id() -> Optional[str]:
-    return tenant_context.get()
-
-def set_current_tenant_id(tenant_id: str) -> None:
-    """테넌트 ID를 컨텍스트에 설정"""
-    tenant_context.set(tenant_id)
+#Fill in the required code here.
