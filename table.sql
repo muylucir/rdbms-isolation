@@ -1,8 +1,8 @@
-DROP TABLE IF EXISTS order_items;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS users;
-DROP TYPE IF EXISTS order_status;
+DROP TABLE IF EXISTS order_items cascade;
+DROP TABLE IF EXISTS orders cascade;
+DROP TABLE IF EXISTS products cascade;
+DROP TABLE IF EXISTS users cascade;
+DROP TYPE IF EXISTS order_status cascade;
 
 
 CREATE TABLE IF NOT EXISTS users (
