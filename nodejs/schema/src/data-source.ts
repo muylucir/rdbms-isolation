@@ -6,3 +6,5 @@ export const AppDataSource = new DataSource({
   ...dbConfig,
   namingStrategy: new SnakeNamingStrategy()
 });
+
+DatabaseService.initialize(AppDataSource);
