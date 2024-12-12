@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://<Replace with your PostgreSQL database endpoint>
+    url: jdbc:postgresql://<Replace with your PostgreSQL database endpoint>/saasdb
     username: <Replace with your PostgreSQL database credentials>
     password: <Replace with your PostgreSQL database credentials>
     hikari:
