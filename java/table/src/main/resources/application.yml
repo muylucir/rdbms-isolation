@@ -20,6 +20,6 @@ server:
 
 logging:
   level:
-    com.multitenancy.schema: INFO
+    com.multitenancy.table: INFO
     org.springframework.web: INFO
-    org.hibernate.SQL: INFO
+    org.hibernate.SQL: TRACE

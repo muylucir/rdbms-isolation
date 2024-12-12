@@ -22,4 +22,4 @@ logging:
   level:
     com.multitenancy.schema: INFO
     org.springframework.web: INFO
-    org.hibernate.SQL: INFO
+    org.hibernate.SQL: TRACE
