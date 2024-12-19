@@ -4,10 +4,10 @@ import { OrderItem } from '../entities/OrderItem';
 import { CreateOrderDto, UpdateOrderStatusDto } from '../dtos/order.dto';
 import { ProductService } from './product.service';
 import { UserService } from './user.service';
-import { TenantAwareService } from './tenant-aware.service';
+import { BaseService } from './base.service';
 import { AppError } from '../utils/error.util';
 
-export class OrderService extends TenantAwareService<Order> {
+export class OrderService extends BaseService<Order> {
   private productService: ProductService;
   private userService: UserService;
 
@@ -18,16 +18,16 @@ export class OrderService extends TenantAwareService<Order> {
   }
 
   async findAll(): Promise<Order[]> {
-    return this.repository.find(this.addTenantFilter({
+    return this.repository.find({
       relations: ['user', 'orderItems', 'orderItems.product']
-    }));
+    });
   }
 
   async findById(id: number): Promise<Order> {
-    const order = await this.repository.findOne(this.addTenantFilter({
+    const order = await this.repository.findOne({
       where: { id },
       relations: ['user', 'orderItems', 'orderItems.product']
-    }));
+    });
 
     if (!order) {
       throw new AppError(404, 'Order not found');
@@ -37,10 +37,10 @@ export class OrderService extends TenantAwareService<Order> {
   }
 
   async findByUserId(userId: number): Promise<Order[]> {
-    return this.repository.find(this.addTenantFilter({
+    return this.repository.find({
       where: { userId },
       relations: ['orderItems', 'orderItems.product']
-    }));
+    });
   }
 
   async create(userId: number, createOrderDto: CreateOrderDto): Promise<Order> {
@@ -55,7 +55,6 @@ export class OrderService extends TenantAwareService<Order> {
     order.orderDate = new Date();
     order.status = OrderStatus.PENDING;
     order.orderItems = [];
-    order.tenantId = this.getTenantId();
     
     let totalAmount = 0;
 
@@ -69,7 +68,6 @@ export class OrderService extends TenantAwareService<Order> {
       orderItem.product = product;
       orderItem.quantity = itemDto.quantity;
       orderItem.price = product.price;
-      orderItem.tenantId = this.getTenantId();
       order.orderItems.push(orderItem);
 
       totalAmount += product.price * itemDto.quantity;
