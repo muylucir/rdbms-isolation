@@ -4,7 +4,7 @@ import { OrderItem } from '../entities/OrderItem';
 import { CreateOrderDto, UpdateOrderStatusDto } from '../dtos/order.dto';
 import { ProductService } from './product.service';
 import { UserService } from './user.service';
-import { BaseService } from './base.service';
+import { BaseService } from './tenant-aware.service';
 import { AppError } from '../utils/error.util';
 
 export class OrderService extends BaseService<Order> {

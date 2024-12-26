@@ -1,7 +1,7 @@
 import { AppDataSource } from '../data-source';
 import { User } from '../entities/User';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
-import { BaseService } from './base.service';
+import { BaseService } from './tenant-aware.service';
 
 export class UserService extends BaseService<User> {
   constructor() {

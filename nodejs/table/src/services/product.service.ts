@@ -2,7 +2,7 @@ import { ILike } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entities/Product';
 import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
-import { BaseService } from './base.service';
+import { BaseService } from './tenant-aware.service';
 
 export class ProductService extends BaseService<Product> {
   constructor() {
