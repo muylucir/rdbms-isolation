@@ -2,29 +2,34 @@ import { ILike } from 'typeorm';
 import { AppDataSource } from '../data-source';
 import { Product } from '../entities/Product';
 import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
-import { BaseService } from './tenant-aware.service';
+import { TenantAwareService } from './tenant-aware.service';
 
-export class ProductService extends BaseService<Product> {
+export class ProductService extends TenantAwareService<Product> {
   constructor() {
     super(AppDataSource.getRepository(Product));
   }
 
   async findAll(): Promise<Product[]> {
-    return this.repository.find();
+    return this.repository.find(this.addTenantFilter());
   }
 
   async findById(id: number): Promise<Product | null> {
-    return this.repository.findOne({ where: { id } });
+    return this.repository.findOne(this.addTenantFilter({ where: { id } }));
   }
 
   async search(name: string): Promise<Product[]> {
-    return this.repository.find({ 
-      where: { name: ILike(`%${name}%`) }
-    });
+    return this.repository.find(
+      this.addTenantFilter({ 
+        where: { name: ILike(`%${name}%`) }
+      })
+    );
   }
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const product = this.repository.create(createProductDto);
+    const product = this.repository.create({
+      ...createProductDto,
+      tenantId: this.getTenantId()
+    });
     return this.repository.save(product);
   }
 
@@ -37,6 +42,6 @@ export class ProductService extends BaseService<Product> {
   }
 
   async delete(id: number): Promise<void> {
-    await this.repository.delete({ id });
+    await this.repository.delete(this.addTenantFilter({ where: { id } }));
   }
 }
