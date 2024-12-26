@@ -70,6 +70,7 @@ export class OrderService extends TenantAwareService<Order> {
       orderItem.quantity = itemDto.quantity;
       orderItem.price = product.price;
       orderItem.tenantId = this.getTenantId();
+
       order.orderItems.push(orderItem);
 
       totalAmount += product.price * itemDto.quantity;
